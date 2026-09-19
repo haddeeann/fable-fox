@@ -21,6 +21,9 @@
         <li>Give every issue its own visual personality</li>
       </ul>
     </base-card>
+    <base-card id="contact" title="Contact">
+      <p>Have a strange idea, a tiny masterpiece, or a question? Send a note to the Doodle Zines Press.</p>
+    </base-card>
   </div>
 </template>
 

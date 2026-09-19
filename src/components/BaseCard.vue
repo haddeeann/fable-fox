@@ -68,7 +68,7 @@ const isBordered = props.bordered ?? true
 const isHoverable = props.hoverable ?? false
 
 // Base styling
-const baseClasses = 'rounded-2l shadow my-6 mx-auto'
+const baseClasses = 'dz-card my-6 mx-auto'
 
 // Size-based padding & font-size
 const sizeClasses = computed(() => {

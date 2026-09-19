@@ -44,16 +44,16 @@ export default defineComponent({
   },
   emits: ['click'],
   setup(props, { emit }) {
-    const baseClasses = 'inline-flex items-center justify-center font-medium rounded my-4 cursor-pointer transition-colors duration-200'
+    const baseClasses = 'dz-button inline-flex items-center justify-center my-4 cursor-pointer'
 
     const typeClasses = computed(() => {
       switch (props.type) {
-        case 'primary': return 'bg-blue-500 text-white hover:bg-blue-700'
-        case 'secondary': return 'bg-gray-200 text-gray-800 hover:bg-gray-300'
-        case 'success': return 'bg-green-600 text-white hover:bg-green-700'
-        case 'warning': return 'bg-yellow-500 text-white hover:bg-yellow-600'
-        case 'error':   return 'bg-red-600 text-white hover:bg-red-700'
-        default:        return 'bg-gray-200 text-gray-800 hover:bg-gray-300'
+        case 'primary': return 'dz-button--primary'
+        case 'secondary': return 'dz-button--secondary'
+        case 'success': return 'dz-button--success'
+        case 'warning': return 'dz-button--warning'
+        case 'error':   return 'dz-button--error'
+        default:        return 'dz-button--default'
       }
     })
     const sizeClasses = computed(() => {

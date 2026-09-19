@@ -1,1 +1,123 @@
 @import "tailwindcss";
+
+:root {
+  --color-ink: #151515;
+  --color-paper: #f4efe4;
+  --color-marigold: #f2542d;
+  --color-teal: #2ec4b6;
+  --color-rule: #3a3a38;
+  --color-muted: #aaa59a;
+  --font-display: "Permanent Marker", cursive;
+  --font-body: "Space Grotesk", sans-serif;
+  --radius-wobbly: 8px 4px 10px 5px;
+  --shadow-hard-teal: 6px 6px 0 rgba(46, 196, 182, 0.45);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-width: 320px;
+  min-height: 100%;
+}
+
+html,
+body {
+  background: var(--color-ink);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.dz-button {
+  border: 2px solid transparent;
+  border-radius: var(--radius-wobbly);
+  font-family: var(--font-body);
+  font-weight: 700;
+  transition: transform 160ms ease, box-shadow 160ms ease, color 160ms ease;
+}
+
+.dz-button:hover:not(:disabled) {
+  transform: translate(-1px, -1px) rotate(-0.35deg);
+}
+
+.dz-button:focus-visible {
+  outline: 3px solid var(--color-teal);
+  outline-offset: 3px;
+}
+
+.dz-button--primary,
+.dz-button--success {
+  background: var(--color-marigold);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-hard-teal);
+}
+
+.dz-button--secondary,
+.dz-button--default {
+  border-color: var(--color-paper);
+  background: transparent;
+  color: var(--color-paper);
+}
+
+.dz-button--warning,
+.dz-button--error {
+  border-color: var(--color-marigold);
+  background: transparent;
+  color: var(--color-marigold);
+}
+
+.dz-card {
+  border: 2px solid var(--color-ink);
+  border-radius: var(--radius-wobbly);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  box-shadow: 6px 6px 0 rgba(242, 84, 45, 0.28);
+}
+
+.dz-card > header {
+  font-family: var(--font-display);
+  font-size: 1.35em;
+}
+
+::selection {
+  background: var(--color-teal);
+  color: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

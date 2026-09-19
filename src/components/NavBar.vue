@@ -1,50 +1,119 @@
 <template>
-  <div class="p-4 bg-white shadow flex justify-between items-center">
-    <div class="flex space-x-4" >
-      <div>
-        <RouterLink to="/" active-class="text-primary font-bold">Home</RouterLink>
-        <span class="px-1">|</span>
-        <RouterLink to="/issues" active-class="text-primary font-bold">Issues</RouterLink>
-        <span v-if="storeAuth.user">
-          <span class="px-1">|</span>
-          <RouterLink to="/posts" active-class="text-primary font-bold">My Zines</RouterLink>
-          <span class="px-1">|</span>
-          <RouterLink to="/posts/new" active-class="text-primary font-bold">New Zine</RouterLink>
-          <span class="px-1">|</span>
-          <RouterLink to="/notes" active-class="text-primary font-bold">Notes</RouterLink>
-          <span class="px-1">|</span>
-          <RouterLink to="/stats" active-class="text-primary font-bold">Stats</RouterLink>
-        </span>
-        <span class="px-1">|</span>
-        <RouterLink to="/about" active-class="text-primary font-bold">About</RouterLink>
-      </div>
-    </div>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <BrandMark />
 
-    <div class="flex items-center space-x-4">
-      <div v-if="storeAuth.user">
-        Hey, {{ storeAuth.user.username }}!
-      </div>
-      <base-button
-        type="primary"
-        v-if="storeAuth.user"
-        @click="storeAuth.logOutUser">
-        Log out
-      </base-button>
-      <RouterLink v-else to="/auth">
-        <base-button
-          type="primary"
-        >
-          Login
-        </base-button>
-      </RouterLink>
+      <nav class="site-header__nav" aria-label="Primary navigation">
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/issues">Issues</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+
+        <template v-if="storeAuth.user">
+          <RouterLink class="site-header__member-link" to="/posts">My Zines</RouterLink>
+          <RouterLink class="site-header__member-link" to="/posts/new">New Zine</RouterLink>
+          <button class="site-header__sign-in" type="button" @click="storeAuth.logOutUser">
+            Log out
+          </button>
+        </template>
+        <RouterLink v-else class="site-header__sign-in" to="/auth">Sign In</RouterLink>
+      </nav>
     </div>
-  </div>
+  </header>
 </template>
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { useStoreAuth } from '@/stores/storeAuth'
-import BaseButton from '@/components/BaseButton.vue'
+import BrandMark from '@/components/BrandMark.vue'
 
 const storeAuth = useStoreAuth()
 </script>
+
+<style scoped>
+.site-header {
+  position: relative;
+  z-index: 20;
+  border-bottom: 2px solid var(--color-rule);
+  background: var(--color-ink);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  width: min(100%, 1440px);
+  min-height: 82px;
+  margin: 0 auto;
+  padding: 1rem clamp(1.25rem, 5vw, 4.5rem);
+}
+
+.site-header__nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.4vw, 2.2rem);
+}
+
+.site-header__nav a,
+.site-header__nav button {
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  font-size: 0.94rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 150ms ease, transform 150ms ease;
+}
+
+.site-header__nav a:hover,
+.site-header__nav a:focus-visible,
+.site-header__nav a.router-link-exact-active:not(.site-header__sign-in) {
+  color: var(--color-marigold);
+}
+
+.site-header__sign-in {
+  min-width: 82px;
+  padding: 0.58rem 1rem;
+  border: 2px solid var(--color-marigold);
+  border-radius: var(--radius-wobbly);
+  background: transparent;
+  color: var(--color-marigold) !important;
+  cursor: pointer;
+  text-align: center;
+}
+
+.site-header__sign-in:hover,
+.site-header__sign-in:focus-visible {
+  transform: rotate(-0.75deg);
+}
+
+@media (max-width: 760px) {
+  .site-header__inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+    padding-block: 1rem;
+  }
+
+  .site-header__nav {
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.7rem;
+  }
+
+  .site-header__member-link {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .site-header__nav a,
+  .site-header__nav button {
+    font-size: 0.82rem;
+  }
+
+  .site-header__sign-in {
+    min-width: 68px;
+    padding-inline: 0.65rem;
+  }
+}
+</style>
