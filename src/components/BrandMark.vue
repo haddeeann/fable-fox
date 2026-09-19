@@ -1,16 +1,14 @@
 <template>
-  <RouterLink to="/" class="brand-mark" :class="{ 'brand-mark--compact': compact }" aria-label="Doodle Zines home">
-    <svg class="brand-mark__nib" viewBox="0 0 32 42" aria-hidden="true">
-      <path d="M16 2.5 29 15 20.5 35.5 10 39 3 31.5 7.5 10Z" />
-      <path class="brand-mark__line" d="m7.5 10 15.5 2.5-7 10.5M16 23l-6 16M16 23l4.5 12.5" />
-      <circle cx="16" cy="23" r="2.4" />
-    </svg>
-    <span class="brand-mark__wordmark">Doodle Zines</span>
+  <RouterLink to="/" class="brand-mark" :class="{ 'brand-mark--compact': compact }" aria-label="FableFox home">
+    <img class="brand-mark__fox" :src="foxMark" alt="" aria-hidden="true" />
+    <span class="brand-mark__wordmark">FableFox</span>
   </RouterLink>
 </template>
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+
+const foxMark = `${import.meta.env.BASE_URL}favicon.svg`
 
 withDefaults(defineProps<{ compact?: boolean }>(), {
   compact: false,
@@ -27,20 +25,12 @@ withDefaults(defineProps<{ compact?: boolean }>(), {
   white-space: nowrap;
 }
 
-.brand-mark__nib {
-  width: 28px;
-  height: 37px;
+.brand-mark__fox {
+  width: 44px;
+  height: 44px;
   flex: none;
-  fill: color-mix(in srgb, var(--color-marigold) 22%, transparent);
-  stroke: var(--color-marigold);
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 2;
-  transform: rotate(-6deg);
-}
-
-.brand-mark__line {
-  fill: none;
+  object-fit: contain;
+  transform: rotate(-2deg);
 }
 
 .brand-mark__wordmark {
@@ -55,9 +45,9 @@ withDefaults(defineProps<{ compact?: boolean }>(), {
   gap: 0.5rem;
 }
 
-.brand-mark--compact .brand-mark__nib {
-  width: 22px;
-  height: 30px;
+.brand-mark--compact .brand-mark__fox {
+  width: 40px;
+  height: 40px;
 }
 
 .brand-mark--compact .brand-mark__wordmark {

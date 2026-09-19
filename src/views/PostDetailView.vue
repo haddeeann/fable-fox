@@ -10,14 +10,14 @@
         v-if="isLoggedIn && post.author_id === storeAuth.user?.id"
         @click="goToBlogEdit()"
       >
-        Edit zine
+        Edit
       </base-button>
       <div
         class="prose max-w-none text-gray-800"
         v-html="sanitize(post.content)"
       />
     </base-card>
-    <div v-else>Opening this zine…</div>
+    <div v-else>Opening this piece…</div>
   </main>
 </template>
 

@@ -1,8 +1,8 @@
 <template>
   <main>
-    <h1 class="my-4 text-2xl font-bold">My Zines</h1>
+    <h1 class="my-4 text-2xl font-bold">My Stories &amp; Zines</h1>
     <p v-if="storePosts.userPosts.length === 0" class="my-6 text-gray-600">
-      Your zine shelf is waiting for its first wonderfully messy idea.
+      Your story shelf is waiting for its first curious little idea.
     </p>
     <base-card
       v-for="post in storePosts.userPosts"
@@ -22,11 +22,11 @@
       </div>
       <div class="flex space-x-2">
         <div>
-          <base-button type="primary" @click="goToBlogEdit(post.id)">Edit zine</base-button>
+          <base-button type="primary" @click="goToBlogEdit(post.id)">Edit</base-button>
         </div>
         <div>
           <base-button type="warning" @click="() => handleDeleteClicked(post.id)">
-            Delete zine
+            Delete
           </base-button>
         </div>
       </div>

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <base-card title="Welcome back to Doodle Zines">
+  <main class="auth-view">
+    <base-card title="Welcome back to FableFox">
       <form @submit.prevent="onSubmit" class="mt-4 space-y-4">
         <BaseInput
           id="username"
@@ -70,7 +70,7 @@
         </base-button>
       </form>
     </base-card>
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts">
@@ -107,3 +107,12 @@ const onSubmit = async () => {
   }
 }
 </script>
+
+<style scoped>
+.auth-view {
+  width: 100%;
+  max-width: 42rem;
+  margin-inline: auto;
+  padding-block: clamp(3rem, 8vh, 6rem);
+}
+</style>

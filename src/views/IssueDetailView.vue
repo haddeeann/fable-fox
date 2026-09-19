@@ -20,7 +20,7 @@
         <ZinePieceCard v-for="piece in section.pieces" :key="piece.id" :piece="piece" />
       </div>
     </section>
-    <p v-if="!issue.pieces.length">This issue is still gathering its doodles. Check back after the ink dries.</p>
+    <p v-if="!issue.pieces.length">This issue is still gathering its stories. Check back after the ink dries.</p>
   </main>
   <main v-else class="issue-detail">Loading issue…</main>
 </template>

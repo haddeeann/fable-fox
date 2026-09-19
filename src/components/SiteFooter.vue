@@ -3,7 +3,7 @@
     <div class="site-footer__inner">
       <div class="site-footer__brand">
         <BrandMark compact />
-        <p>Small press. Big doodles.</p>
+        <p>Small stories. Curious worlds.</p>
       </div>
 
       <nav class="site-footer__nav" aria-label="Footer navigation">
@@ -13,7 +13,7 @@
         <RouterLink to="/about#contact">Contact</RouterLink>
       </nav>
 
-      <p class="site-footer__copyright">© {{ currentYear }} Doodle Zines Press</p>
+      <p class="site-footer__copyright">© {{ currentYear }} FableFox Press</p>
     </div>
   </footer>
 </template>
@@ -36,10 +36,9 @@ const currentYear = new Date().getFullYear()
   grid-template-columns: minmax(220px, 1fr) auto minmax(220px, 1fr);
   align-items: center;
   gap: 2rem;
-  width: min(100%, 1440px);
+  width: 100%;
   min-height: 116px;
-  margin: 0 auto;
-  padding: 1.5rem clamp(1.25rem, 5vw, 4.5rem);
+  padding: 1.5rem clamp(3rem, 4vw, 4rem);
 }
 
 .site-footer__brand p,
@@ -79,7 +78,7 @@ const currentYear = new Date().getFullYear()
     grid-template-columns: 1fr;
     justify-items: center;
     gap: 1.35rem;
-    padding-block: 2rem;
+    padding: 2rem 1rem;
     text-align: center;
   }
 

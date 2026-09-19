@@ -9,8 +9,8 @@
         <RouterLink to="/about">About</RouterLink>
 
         <template v-if="storeAuth.user">
-          <RouterLink class="site-header__member-link" to="/posts">My Zines</RouterLink>
-          <RouterLink class="site-header__member-link" to="/posts/new">New Zine</RouterLink>
+          <RouterLink class="site-header__member-link" to="/posts">My Library</RouterLink>
+          <RouterLink class="site-header__member-link" to="/posts/new">New Piece</RouterLink>
           <button class="site-header__sign-in" type="button" @click="storeAuth.logOutUser">
             Log out
           </button>
@@ -31,8 +31,10 @@ const storeAuth = useStoreAuth()
 
 <style scoped>
 .site-header {
-  position: relative;
-  z-index: 20;
+  position: sticky;
+  z-index: 100;
+  top: 0;
+  width: 100%;
   border-bottom: 2px solid var(--color-rule);
   background: var(--color-ink);
 }
@@ -42,10 +44,9 @@ const storeAuth = useStoreAuth()
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
-  width: min(100%, 1440px);
+  width: 100%;
   min-height: 82px;
-  margin: 0 auto;
-  padding: 1rem clamp(1.25rem, 5vw, 4.5rem);
+  padding: 1rem clamp(3rem, 4vw, 4rem);
 }
 
 .site-header__nav {
@@ -91,7 +92,7 @@ const storeAuth = useStoreAuth()
     align-items: flex-start;
     flex-direction: column;
     gap: 1rem;
-    padding-block: 1rem;
+    padding: 1rem;
   }
 
   .site-header__nav {

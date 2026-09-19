@@ -1,23 +1,27 @@
 <template>
   <main class="landing-page">
     <section class="landing-hero">
-      <!-- Temporary Stitch artwork: replace with licensed or commissioned art before production. -->
       <img
         class="landing-hero__art"
         :src="heroArtwork"
-        alt="A hand-drawn zine cover with a winding path through a strange monochrome landscape"
+        alt="A hand-drawn tower of crooked buildings and spiral staircases"
       />
 
-      <svg class="landing-hero__splatter" viewBox="0 0 170 150" aria-hidden="true">
-        <path d="M87 49c12-28 22-32 26-8 3 19 29-7 34 4 5 10-21 22-7 30 20 12 8 26-8 23-13-2-8 27-22 22-9-3-7-23-21-10-18 17-31 4-17-12 12-15-16-24-2-33 8-5 22 12 29-6 8-20 22-14 18 8Z" />
-        <circle cx="29" cy="45" r="5" />
-        <circle cx="142" cy="122" r="7" />
-        <circle cx="63" cy="131" r="3" />
+      <svg class="landing-hero__flourish" viewBox="0 0 180 150" aria-hidden="true">
+        <path class="landing-hero__swirl" d="M12 92c18-43 67-15 44 14-13 17-42 5-34-16 9-26 53-40 83-14 22 19 22 49-1 61" />
+        <path class="landing-hero__star" d="m119 30 5-14 5 14 14 5-14 5-5 14-5-14-14-5Z" />
+        <g class="landing-hero__paw" transform="translate(143 79) rotate(13)">
+          <ellipse cx="12" cy="18" rx="8" ry="6" />
+          <circle cx="3" cy="10" r="3" />
+          <circle cx="10" cy="6" r="3" />
+          <circle cx="18" cy="8" r="3" />
+          <circle cx="23" cy="14" r="3" />
+        </g>
       </svg>
 
       <div class="landing-hero__inner">
         <div class="landing-hero__copy">
-          <p class="landing-hero__kicker">AN INDEPENDENT PRESS</p>
+          <p class="landing-hero__kicker">AN INDEPENDENT STORY PRESS</p>
           <h1>
             <span>Publish something</span>
             <Transition name="word-fade" mode="out-in">
@@ -29,19 +33,28 @@
             </Transition>
           </h1>
 
-          <p class="landing-hero__subheadline">Write it, doodle it, and send it into the world.</p>
+          <p class="landing-hero__subheadline">Write a short story, doodle a zine, and send it into the world.</p>
 
           <RouterLink class="landing-hero__cta" :to="storeAuth.isLoggedIn ? '/posts/new' : '/auth'">
-            Start writing
+            Start creating
           </RouterLink>
 
-          <figure class="landing-hero__quote">
-            <blockquote>
-              “We don't need another polished portfolio platform. We need weird, restless,
-              risky zines — late-night poetry and half-baked genius.”
-            </blockquote>
-            <figcaption>— THE DOODLE ZINES PRESS</figcaption>
-          </figure>
+          <WhimsyDivider class="landing-hero__divider" />
+
+          <div class="landing-hero__manifesto">
+            <img
+              class="landing-hero__fox"
+              :src="detailedFox"
+              alt="A bespectacled fox reading a book and holding a quill"
+            />
+            <figure class="landing-hero__quote">
+              <blockquote>
+                “The best stories feel like finding a handwritten note tucked inside an old
+                library book — curious, personal, and meant to be shared.”
+              </blockquote>
+              <figcaption>— THE FABLEFOX PRESS</figcaption>
+            </figure>
+          </div>
         </div>
       </div>
     </section>
@@ -53,12 +66,14 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useStoreAuth } from '@/stores/storeAuth'
 import { useStorePosts } from '@/stores/storePosts'
-import heroArtwork from '@/assets/doodle-zines-hero.png'
+import WhimsyDivider from '@/components/WhimsyDivider.vue'
+import heroArtwork from '@/assets/fablefox-tower-hero.png'
+import detailedFox from '@/assets/fablefox-mark.png'
 
 const storeAuth = useStoreAuth()
 const storePosts = useStorePosts()
-const words = ['unhinged', 'creative', 'spooky', 'weird', 'horny', 'odd','rebellious', 'classy', 'classic', 'suspicious', 'adorable']
-const rotations = ['-1.5deg', '1deg', '-1deg', '0.7deg', '-0.8deg', '1.1deg']
+const words = ['quirky', 'creative', 'spooky', 'wonderfully odd', 'cozy', 'curious', 'unexpected', 'adorable']
+const rotations = ['-1.5deg', '1deg', '-1deg', '0.7deg', '-0.8deg', '1.1deg', '-0.5deg', '0.9deg']
 const wordIndex = ref(0)
 const currentWord = computed(() => words[wordIndex.value])
 const currentRotation = computed(() => rotations[wordIndex.value])
@@ -99,7 +114,7 @@ onUnmounted(() => {
   height: 100%;
   object-fit: cover;
   object-position: 20% 30%;
-  filter: grayscale(45%);
+  filter: saturate(78%) contrast(102%);
   mask-image: linear-gradient(to left, black 60%, transparent 100%);
   opacity: 0.9;
 }
@@ -109,14 +124,13 @@ onUnmounted(() => {
   z-index: 2;
   display: flex;
   align-items: center;
-  width: min(100%, 1440px);
+  width: 100%;
   min-height: inherit;
-  margin: 0 auto;
-  padding: clamp(4rem, 8vh, 6.5rem) clamp(1.25rem, 6vw, 5.5rem);
+  padding: clamp(4rem, 8vh, 6.5rem) clamp(3rem, 4vw, 4rem);
 }
 
 .landing-hero__copy {
-  width: min(100%, 680px);
+  width: min(100%, 760px);
 }
 
 .landing-hero__kicker {
@@ -185,10 +199,27 @@ onUnmounted(() => {
 }
 
 .landing-hero__quote {
-  width: min(100%, 650px);
-  margin: 3.5rem 0 0;
-  padding-top: 1.8rem;
-  border-top: 1px solid var(--color-rule);
+  width: min(100%, 540px);
+  margin: 0;
+}
+
+.landing-hero__divider {
+  margin-top: 3.5rem;
+}
+
+.landing-hero__manifesto {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2rem);
+  margin-top: 1rem;
+}
+
+.landing-hero__fox {
+  width: clamp(145px, 13vw, 190px);
+  height: auto;
+  flex: none;
+  filter: drop-shadow(5px 5px 0 rgba(242, 84, 45, 0.2));
+  transform: rotate(-2deg);
 }
 
 .landing-hero__quote blockquote {
@@ -207,15 +238,29 @@ onUnmounted(() => {
   letter-spacing: 0.15em;
 }
 
-.landing-hero__splatter {
+.landing-hero__flourish {
   position: absolute;
   z-index: 1;
-  right: 43%;
-  bottom: 5%;
-  width: 130px;
-  fill: var(--color-teal);
-  opacity: 0.08;
-  transform: rotate(18deg);
+  right: 42%;
+  bottom: 6%;
+  width: 145px;
+  opacity: 0.16;
+  transform: rotate(-8deg);
+}
+
+.landing-hero__swirl {
+  fill: none;
+  stroke: var(--color-teal);
+  stroke-linecap: round;
+  stroke-width: 4;
+}
+
+.landing-hero__star {
+  fill: var(--color-marigold);
+}
+
+.landing-hero__paw {
+  fill: var(--color-paper);
 }
 
 .word-fade-enter-active,
@@ -250,7 +295,7 @@ onUnmounted(() => {
 
   .landing-hero__inner {
     align-items: flex-start;
-    padding-block: 4rem;
+    padding: 4rem 1rem;
   }
 
   .landing-hero__art {
@@ -264,7 +309,16 @@ onUnmounted(() => {
   }
 
   .landing-hero__quote {
-    margin-top: 3rem;
+    width: 100%;
+  }
+
+  .landing-hero__manifesto {
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .landing-hero__fox {
+    width: 112px;
   }
 }
 </style>
