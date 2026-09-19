@@ -65,6 +65,8 @@
           </template>
         </BaseInput>
 
+        <p v-if="loginError" class="login-error" role="alert">{{ loginError }}</p>
+
         <base-button native-type="submit" :disabled="loading" type="primary">
           {{ loading ? 'Logging in…' : 'Login' }}
         </base-button>
@@ -88,6 +90,7 @@ const credentials = reactive({
 const storeAuth = useStoreAuth()
 const loading = ref(false)
 const passwordVisible = ref(false)
+const loginError = ref('')
 
 const passwordError = computed(() =>
   credentials.password.length === 0 ? '' :
@@ -95,13 +98,16 @@ const passwordError = computed(() =>
 )
 
 const onSubmit = async () => {
+  loginError.value = ''
   if (!credentials.username || !credentials.password) {
-    alert('Please enter a username and password')
+    loginError.value = 'Please enter a username and password'
     return
   }
   loading.value = true
   try {
     await storeAuth.logInUser(credentials)
+  } catch (err) {
+    loginError.value = err instanceof Error ? err.message : 'Unable to log in.'
   } finally {
     loading.value = false
   }
@@ -114,5 +120,11 @@ const onSubmit = async () => {
   max-width: 42rem;
   margin-inline: auto;
   padding-block: clamp(3rem, 8vh, 6rem);
+}
+
+.login-error {
+  margin: 0;
+  color: #b42318;
+  font-size: 0.95rem;
 }
 </style>

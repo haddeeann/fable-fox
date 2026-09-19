@@ -1,7 +1,18 @@
 import { defineStore } from 'pinia'
-import axios, { setTokens, clearTokens } from '@/api/axios'
+import axios, { setTokens, clearTokens, getAccess } from '@/api/axios'
 
 import { useStoreNotes } from '@/stores/storeNotes'
+
+function loginErrorMessage(err: unknown): string {
+  const detail = (err as { response?: { data?: { detail?: string } } })?.response?.data?.detail
+  if (typeof detail === 'string' && detail.trim()) {
+    if (detail.toLowerCase().includes('no active account')) {
+      return 'Username or password is incorrect.'
+    }
+    return detail
+  }
+  return 'Unable to log in. Check your username and password.'
+}
 
 type Credentials = {
   username: string
@@ -40,30 +51,49 @@ export const useStoreAuth = defineStore('storeAuth', {
 
         const access = res.data.access
         const refresh = res.data.refresh
+        if (!access) {
+          throw new Error('Login did not return an access token.')
+        }
         setTokens(access, refresh)
 
-        const userRes = await axios.get('/api/auth/current_user/')
-        const userData = userRes.data
-
-        // fetched user
-        this.user = {
-          id: userData.id,
-          username: userData.username,
-          token: access,
-          role: userData.role,
-        }
-
+        const userRes = await axios.get('/api/auth/current_user/', {
+          headers: { Authorization: `Bearer ${access}` },
+        })
+        this.setSession(userRes.data, access)
         this.router.push('/')
         return this.user
       } catch (err) {
         console.error(err)
-        return null
+        const hasApiDetail = Boolean(
+          (err as { response?: { data?: { detail?: string } } })?.response?.data?.detail
+        )
+        if (err instanceof Error && !hasApiDetail) {
+          throw err
+        }
+        throw new Error(loginErrorMessage(err))
+      }
+    },
+    async restoreSession(): Promise<void> {
+      if (this.user || !getAccess()) return
+      try {
+        const userRes = await axios.get('/api/auth/current_user/')
+        this.setSession(userRes.data, getAccess() || '')
+      } catch {
+        this.user = null
+        clearTokens()
+      }
+    },
+    setSession(userData: { id: number; username: string; role: User['role'] }, access: string) {
+      this.user = {
+        id: userData.id,
+        username: userData.username,
+        token: access,
+        role: userData.role,
       }
     },
     logOutUser() {
       this.user = null
       clearTokens()
-      delete axios.defaults.headers.common['Authorization']
       this.router.replace('/auth')
       useStoreNotes().clearNotes()
     },

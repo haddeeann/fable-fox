@@ -9,10 +9,19 @@ let pendingQueue: { resolve: (v:any)=>void; reject: (e:any)=>void; config:any }[
 
 function onRefreshed(newAccess: string) {
   pendingQueue.forEach(({ resolve, config }) => {
-    config.headers.Authorization = `Bearer ${newAccess}`
+    setAuthHeader(config, newAccess)
     resolve(axios(config))
   })
   pendingQueue = []
+}
+
+function setAuthHeader(config: { headers?: any }, token: string) {
+  config.headers = config.headers || {}
+  if (typeof config.headers.set === 'function') {
+    config.headers.set('Authorization', `Bearer ${token}`)
+  } else {
+    config.headers.Authorization = `Bearer ${token}`
+  }
 }
 
 function getAccess() {
@@ -21,21 +30,34 @@ function getAccess() {
 function getRefresh() {
   return localStorage.getItem('refresh')
 }
+
 function setTokens(access: string, refresh?: string) {
   localStorage.setItem('access', access)
   if (refresh) localStorage.setItem('refresh', refresh)
+  axios.defaults.headers.common.Authorization = `Bearer ${access}`
 }
 function clearTokens() {
   localStorage.removeItem('access')
   localStorage.removeItem('refresh')
+  delete axios.defaults.headers.common.Authorization
 }
 
-// Attach Authorization on every request
+const existingAccess = getAccess()
+if (existingAccess) {
+  axios.defaults.headers.common.Authorization = `Bearer ${existingAccess}`
+}
+
+function isCredentialRequest(config: { url?: string; baseURL?: string }) {
+  const url = `${config.baseURL || ''}${config.url || ''}`
+  return /\/api\/auth\/(login|register|refresh)\/?(\?|$)/.test(url)
+}
+
+// Attach Authorization on every request except login/register/refresh.
 axios.interceptors.request.use((config) => {
+  if (isCredentialRequest(config)) return config
   const access = getAccess()
-  if (access && !isTokenExpired(access)) {
-    config.headers = config.headers || {}
-    config.headers.Authorization = `Bearer ${access}`
+  if (access) {
+    setAuthHeader(config, access)
   }
   return config
 })
@@ -47,8 +69,9 @@ axios.interceptors.response.use(
     const original = error.config
     const status = error?.response?.status
 
-    // Avoid infinite loop & only try once per request
-    if (status === 401 && !original._retry) {
+    // Avoid infinite loop & only try once per request.
+    // Do not try to refresh in response to a failed login/register.
+    if (status === 401 && original && !original._retry && !isCredentialRequest(original)) {
       original._retry = true
 
       const refresh = getRefresh()
@@ -72,6 +95,7 @@ axios.interceptors.response.use(
         )
         const newAccess = data.access
         setTokens(newAccess) // keep same refresh unless rotation enabled
+        setAuthHeader(original, newAccess)
         onRefreshed(newAccess)
         return axios(original)
       } catch (e) {
