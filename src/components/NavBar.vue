@@ -7,9 +7,9 @@
         <RouterLink to="/issues" active-class="text-primary font-bold">Issues</RouterLink>
         <span v-if="storeAuth.user">
           <span class="px-1">|</span>
-          <RouterLink to="/posts" active-class="text-primary font-bold">Posts</RouterLink>
+          <RouterLink to="/posts" active-class="text-primary font-bold">My Zines</RouterLink>
           <span class="px-1">|</span>
-          <RouterLink to="/posts/new" active-class="text-primary font-bold">New Post</RouterLink>
+          <RouterLink to="/posts/new" active-class="text-primary font-bold">New Zine</RouterLink>
           <span class="px-1">|</span>
           <RouterLink to="/notes" active-class="text-primary font-bold">Notes</RouterLink>
           <span class="px-1">|</span>
@@ -22,19 +22,19 @@
 
     <div class="flex items-center space-x-4">
       <div v-if="storeAuth.user">
-        Hello, {{ storeAuth.user.username }}
+        Hey, {{ storeAuth.user.username }}!
       </div>
       <base-button
         type="primary"
         v-if="storeAuth.user"
         @click="storeAuth.logOutUser">
-        Sign Out
+        Log out
       </base-button>
       <RouterLink v-else to="/auth">
         <base-button
           type="primary"
         >
-          Sign In
+          Login
         </base-button>
       </RouterLink>
     </div>

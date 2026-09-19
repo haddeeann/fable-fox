@@ -1,5 +1,6 @@
 <template>
   <BaseCard>
+    <h1 class="text-2xl font-bold">Edit Zine</h1>
     <form @submit.prevent="save">
       <label for="title" class="block">Title</label><input id="title" v-model="title" class="w-full rounded border p-2" />
       <template v-if="isEditor">
@@ -11,7 +12,7 @@
       <TextEditor v-model="content" />
       <div class="flex justify-end gap-2 mt-4">
         <RouterLink to="/posts"><BaseButton type="warning">Cancel</BaseButton></RouterLink>
-        <BaseButton type="primary" native-type="submit" :disabled="!title || !content">Update post</BaseButton>
+        <BaseButton type="primary" native-type="submit" :disabled="!title || !content">Update zine</BaseButton>
         <BaseButton v-if="!isEditor && status === 'submitted'" type="success" @click="submit">Submit for review</BaseButton>
       </div>
     </form>

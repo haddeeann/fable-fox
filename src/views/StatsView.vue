@@ -22,11 +22,11 @@
 
       <input
         v-model="loveTakeNote"
-        placeholder="Do you love Take Note?"
+        placeholder="What are you doodling today?"
         autofocus
       />
       <div class="block mt-2 text-sm italic">
-        Go ahead, say something nice. We’ll watch the characters as you type.
+        Go ahead—make a little noise on the page. We’ll count the characters as you type.
       </div>
     </base-card>
   </div>

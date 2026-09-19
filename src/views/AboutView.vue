@@ -8,19 +8,17 @@
         I build and share my projects under the name <strong>Yellow Umbrella</strong>, a tiny indie software studio focused on joyful, helpful digital tools.
       </p>
     </base-card>
-    <base-card title="About This App">
+    <base-card title="About Doodle Zines">
       <p>
-        This project is a lightweight starter app designed for other developers. It provides a clean foundation for building full-stack Vue apps using Firebase, Pinia, and modern UI components.
+        Doodle Zines is a playful publishing space for collecting bright ideas, shaping them into small zines, and gathering finished work into themed issues.
       </p>
     </base-card>
-    <base-card title="Features">
+    <base-card title="What You Can Make">
       <ul>
-        <li>User authentication with Firebase</li>
-        <li>Note-taking with live Firestore sync</li>
-        <li>Pinia for state management</li>
-        <li>Router-based navigation with protected routes</li>
-        <li>Responsive layout with Tailwind and Naive UI</li>
-        <li>Easy to extend and customize</li>
+        <li>Write, revise, and submit your own zines</li>
+        <li>Collect quick sparks in a private notebook</li>
+        <li>Browse published issues and their contributors</li>
+        <li>Give every issue its own visual personality</li>
       </ul>
     </base-card>
   </div>

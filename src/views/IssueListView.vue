@@ -2,11 +2,11 @@
   <main class="issue-archive">
     <header><p>Archive</p><h1>Issues</h1></header>
     <div v-if="loading">Loading issues…</div>
-    <div v-else-if="!store.issues.length">No published issues yet.</div>
+    <div v-else-if="!store.issues.length">The archive is waiting for its first splash of ink.</div>
     <div v-else class="issue-grid">
       <RouterLink v-for="issue in store.issues" :key="issue.id" :to="`/issues/${issue.id}`" class="issue-cover">
         <img v-if="issue.cover_image_url" :src="issue.cover_image_url" :alt="`Cover of ${issue.title}`" />
-        <div v-else class="issue-cover__placeholder">No cover</div>
+        <div v-else class="issue-cover__placeholder">Cover coming soon</div>
         <p>Issue {{ issue.number }}</p>
         <h2>{{ issue.title }}</h2>
       </RouterLink>

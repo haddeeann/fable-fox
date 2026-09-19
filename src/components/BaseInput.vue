@@ -32,6 +32,8 @@
                 : 'border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
           // spacing when there’s a leading slot
           $slots.leading ? 'pl-10' : '',
+          // leave room for trailing controls such as password reveal
+          $slots.trailing ? 'pr-12' : '',
           // disabled styles
           disabled ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : 'bg-white',
           // allow consumers to add more via prop

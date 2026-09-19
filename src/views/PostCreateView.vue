@@ -1,5 +1,7 @@
 <template>
   <BaseCard>
+    <h1 class="text-2xl font-bold">New Zine</h1>
+    <p class="text-gray-600">Start with a spark. You can keep it rough, revise it, and send it for review when it feels ready.</p>
     <form class="mt-4 space-y-4" @submit.prevent="save(false)">
       <div><label for="post-title" class="block text-sm font-medium">Title</label><input id="post-title" v-model="title" required class="mt-1 block w-full rounded border border-gray-300 p-2" /></div>
       <div><label for="post-content" class="block text-sm font-medium">Content</label><TextEditor id="post-content" v-model="content" class="mt-1 block w-full rounded border border-gray-300" /></div>
@@ -9,7 +11,7 @@
       </template>
       <div class="flex justify-end gap-2">
         <RouterLink to="/posts"><BaseButton type="secondary">Cancel</BaseButton></RouterLink>
-        <BaseButton type="primary" native-type="submit" :disabled="!title || !content">{{ isEditor ? 'Create piece' : 'Save draft' }}</BaseButton>
+        <BaseButton type="primary" native-type="submit" :disabled="!title || !content">{{ isEditor ? 'Create zine' : 'Save draft' }}</BaseButton>
         <BaseButton v-if="!isEditor" type="success" :disabled="!title || !content" @click="save(true)">Submit for review</BaseButton>
       </div>
     </form>

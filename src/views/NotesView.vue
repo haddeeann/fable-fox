@@ -25,7 +25,7 @@
         :note="note"
       />
       <div v-if="storeNotes.notes.length === 0">
-        No notes yet. Start by adding one above!
+        Your notebook is all clean paper—jot down the first spark above.
       </div>
     </div>
   </div>

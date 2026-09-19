@@ -1,5 +1,12 @@
 <template>
   <main>
+    <header class="my-6">
+      <h1 class="text-3xl font-bold">Doodle Zines</h1>
+      <p class="text-gray-600">Small publications, bright ideas, and creative messes.</p>
+    </header>
+    <p v-if="storePosts.publishedPosts.length === 0" class="my-6 text-gray-600">
+      Nothing fresh from the sketchbook yet. The first zine is waiting to be made.
+    </p>
     <base-card
       v-for="post in storePosts.publishedPosts"
       :key="post.id"
