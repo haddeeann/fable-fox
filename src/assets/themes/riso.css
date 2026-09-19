@@ -1,0 +1,15 @@
+[data-theme="riso"] {
+  --color-bg: #f5edcf;
+  --color-surface: #fff8df;
+  --color-text: #22203b;
+  --color-muted: #625d79;
+  --color-accent: #ee315e;
+  --color-accent-contrast: #fff8df;
+  --color-border: #282176;
+  --font-heading: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  --font-body: "Courier New", monospace;
+  --grid-gap: 1.25rem;
+  --page-width: 76rem;
+  --radius: 0;
+  --shadow: 0.45rem 0.45rem 0 #282176;
+}

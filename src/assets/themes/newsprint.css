@@ -1,0 +1,15 @@
+[data-theme="newsprint"] {
+  --color-bg: #eeeadd;
+  --color-surface: #f9f6eb;
+  --color-text: #171717;
+  --color-muted: #55524c;
+  --color-accent: #9b1c1c;
+  --color-accent-contrast: #fffdf7;
+  --color-border: #171717;
+  --font-heading: Georgia, "Times New Roman", serif;
+  --font-body: Georgia, "Times New Roman", serif;
+  --grid-gap: 1rem;
+  --page-width: 70rem;
+  --radius: 0;
+  --shadow: none;
+}
