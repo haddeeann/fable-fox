@@ -23,7 +23,7 @@ export type Post = {
   },
   author_id: number
   tags: Array<string>
-  pages: ZinePage[]
+  pages?: ZinePage[]
 }
 
 export const useStorePosts = defineStore('storePosts', {

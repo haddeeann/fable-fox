@@ -2,9 +2,13 @@ import axios from '@/api/axios'
 import axios_public from '@/api/axios_public'
 import { useStoreAuth } from '@/stores/storeAuth'
 
+function withPages<T extends { pages?: unknown[] }>(post: T): T {
+  return { ...post, pages: post.pages ?? [] }
+}
+
 export async function fetchPostsByAuthor(authorId: number) {
   const res = await axios.get(`/api/posts/?author=${authorId}`)
-  return res.data
+  return Array.isArray(res.data) ? res.data.map(withPages) : res.data
 }
 
 export type PostPayload = {
@@ -31,12 +35,12 @@ export async function fetchPostById(id: number) {
   const client = storeAuth.isLoggedIn ? axios : axios_public
   // allow the backend to determine if we get a post detail
   const res = await client.get(`/api/posts/${id}/`)
-  return res.data
+  return withPages(res.data)
 }
 
 export async function fetchPublishedPosts() {
   const res = await axios_public.get('/api/posts/published/')
-  return res.data
+  return Array.isArray(res.data) ? res.data.map(withPages) : res.data
 }
 
 // api/posts.ts

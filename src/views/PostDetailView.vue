@@ -12,7 +12,7 @@
       >
         Edit
       </base-button>
-      <RouterLink v-if="post.pages.length" :to="{ name: 'FlipbookReader', params: { slug: post.slug } }">
+      <RouterLink v-if="post.pages?.length" :to="{ name: 'FlipbookReader', params: { slug: post.slug } }">
         <base-button type="secondary">Read the flipbook</base-button>
       </RouterLink>
       <div
