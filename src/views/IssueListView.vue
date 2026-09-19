@@ -29,10 +29,11 @@ onMounted(async () => {
 .issue-archive { max-width: var(--page-width); margin: 0 auto; padding: calc(var(--grid-gap) * 2) var(--grid-gap); background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); min-height: 70vh; }
 .issue-archive h1, .issue-cover h2 { font-family: var(--font-heading); }
 .issue-archive header p { color: var(--color-accent); text-transform: uppercase; letter-spacing: .15em; }
-.issue-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: var(--grid-gap); }
+.issue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 20rem)); gap: var(--grid-gap); justify-content: start; }
 .issue-cover { color: var(--color-text); text-decoration: none; }
-.issue-cover img, .issue-cover__placeholder { width: 100%; aspect-ratio: 3/4; object-fit: cover; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); box-shadow: var(--shadow); }
-.issue-cover__placeholder { display: grid; place-items: center; color: var(--color-muted); }
+.issue-cover img, .issue-cover__placeholder { width: 100%; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius); box-shadow: var(--shadow); }
+.issue-cover img { aspect-ratio: 3/4; object-fit: cover; }
+.issue-cover__placeholder { display: grid; min-height: clamp(10rem, 24vh, 14rem); place-items: center; color: var(--color-muted); }
 .issue-cover p { color: var(--color-accent); margin-bottom: 0; }
 .issue-cover h2 { margin-top: .25rem; }
 </style>

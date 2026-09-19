@@ -76,6 +76,18 @@ const router = createRouter({
       meta: { title: 'Edit Story or Zine | FableFox' },
     },
     {
+      path: '/zines/:id/pages',
+      name: 'PageUploader',
+      component: () => import('../views/PageUploaderView.vue'),
+      meta: { title: 'Arrange Zine Pages | FableFox' },
+    },
+    {
+      path: '/zines/:slug/read',
+      name: 'FlipbookReader',
+      component: () => import('../views/FlipbookView.vue'),
+      meta: { public: true, title: 'Read Zine | FableFox' },
+    },
+    {
       path: '/stats',
       name: 'stats',
       component: () => import('../views/StatsView.vue'),
@@ -92,6 +104,7 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
   const storeAuth = useStoreAuth()
+  await storeAuth.restoreSession()
   const publicRoutes = ['auth', 'home', 'about']
   if (!storeAuth.user && !to.meta.public && !publicRoutes.includes(String(to.name))) {
     return {

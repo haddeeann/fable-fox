@@ -2,6 +2,7 @@
 import { defineStore } from 'pinia'
 import { fetchPostsByAuthor, fetchPublishedPosts, createPost, deletePost } from '@/api/posts'
 import { useStoreAuth } from './storeAuth'
+import type { ZinePage } from '@/api/pages'
 
 export type Post = {
   id: number
@@ -22,6 +23,7 @@ export type Post = {
   },
   author_id: number
   tags: Array<string>
+  pages: ZinePage[]
 }
 
 export const useStorePosts = defineStore('storePosts', {

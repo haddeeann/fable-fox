@@ -1,6 +1,9 @@
 <template>
   <BaseCard>
     <h1 class="text-2xl font-bold">Edit Story or Zine</h1>
+    <RouterLink v-if="isOwner" :to="`/zines/${route.params.id}/pages`">
+      <BaseButton type="secondary">Upload and arrange page images</BaseButton>
+    </RouterLink>
     <form @submit.prevent="save">
       <label for="title" class="block">Title</label><input id="title" v-model="title" class="w-full rounded border p-2" />
       <template v-if="isEditor">
@@ -39,7 +42,9 @@ const content = ref('')
 const status = ref<'submitted' | 'in_review' | 'approved' | 'published'>('submitted')
 const issue = ref<number | null>(null)
 const tags = ref<string[]>([])
+const authorId = ref<number | null>(null)
 const isEditor = computed(() => ['admin', 'editor'].includes(auth.user?.role || ''))
+const isOwner = computed(() => auth.user?.id === authorId.value)
 
 async function save() {
   await updatePost(Number(route.params.id), { title: title.value, content: content.value, tags: tags.value, ...(isEditor.value ? { status: status.value, issue: issue.value } : {}) })
@@ -60,5 +65,6 @@ onMounted(async () => {
   status.value = post.status
   issue.value = post.issue
   tags.value = post.tags
+  authorId.value = post.author_id
 })
 </script>
